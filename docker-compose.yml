@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:8.0
+    container_name: mongo
+    restart: unless-stopped
+    command: mongod --replSet rs0 --oplogSize 128
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    # healthcheck:
+    #   test: mongosh --eval "rs.status()" || exit 1
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
+
+  # mongo-init:
+  #   image: mongo:8.0
+  #   container_name: mongo-init
+  #   restart: "no"
+  #   # depends_on:
+  #   #   mongo:
+  #   #     condition: service_healthy
+  #   command: mongosh --host mongo --eval "rs.initiate()"
+
+  rocketchat:
+    image: rocketchat/rocket.chat:7.7.9
+    container_name: rocketchat
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - ROOT_URL=http://localhost:3000
+      - MONGO_URL=mongodb://mongo:27017/rocketchat
+      - MONGO_OPLOG_URL=mongodb://mongo:27017/local
+    # depends_on:
+    #   - mongo-init
+    volumes:
+      - rocketchat_data:/app/uploads
+
+volumes:
+  mongo_data:
+  rocketchat_data:
