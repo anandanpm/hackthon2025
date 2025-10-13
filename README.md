@@ -9,41 +9,32 @@ A modern React chat application that connects to a local Rocket.Chat server. Bui
 - Node.js 20.19+ or 22.12+ (for the React app)
 - Git
 
-### 1. Clone and Setup
+### Clone and Setup
 
 ```bash
 git clone <your-repo-url>
 cd rocketchat-example
 ```
 
-### 2. Start Rocket.Chat Server
+### Get Registration Token for Rocketchat
+Signup on https://cloud.rocket.chat/home
+
+Click on `Register Self Managed`  - copy token 
+
+### Update env vars 
+Copy .env.example to `.env`
+Update value for `REG_TOKEN`
+
+
+### Start Rocket.Chat Server
 
 ```bash
 # Start MongoDB and Rocket.Chat
 docker-compose up -d
 
-# Initialize MongoDB replica set
-sleep 10
-docker exec mongo mongosh --eval "rs.initiate()"
 ```
 
-### 3. Complete Rocket.Chat Setup
-
-1. **Access Rocket.Chat**: Go to `http://localhost:3000`
-2. **Complete Setup Wizard**:
-   - Enter your admin email
-   - Confirm your email
-   - Create admin account
-   - Complete the initial setup
-
-3. **Configure CORS** (Important!):
-   - Go to `http://localhost:3000/admin/settings/General`
-   - Navigate to **REST API** section
-   - Find **CORS** setting
-   - Enable CORS and set to `*` (allow all origins)
-   - Save the settings
-
-### 4. Start React Chat App
+### 4. Start React Example Chat App
 
 ```bash
 cd chat-app
