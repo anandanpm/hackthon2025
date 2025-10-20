@@ -1,0 +1,725 @@
+/* PinsDashboard.css - Modern & Beautiful Pins View */
+
+.pins {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f9fafb;
+  overflow: hidden;
+}
+
+/* Header Section */
+.pins-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  flex-wrap: wrap; /* allow controls to wrap inside header */
+  position: sticky; /* keep header above scrollable grid */
+  top: 0;
+  z-index: 3;
+}
+
+.pins-header .left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 300px;
+  min-width: 0;
+}
+
+.pins-header .left h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.pins-header .left h3::before {
+  content: '📌';
+  font-size: 20px;
+}
+
+.pins-header .left .sub {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pins-header .right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap; /* wrap filters on small widths */
+  flex: 1 1 300px;
+}
+
+.pins-header select,
+.pins-header input {
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  outline: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s ease;
+  min-width: 150px;
+}
+
+.pins-header select {
+  cursor: pointer;
+}
+
+.pins-header select:hover,
+.pins-header input:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.pins-header select:focus,
+.pins-header input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.pins-header select option {
+  color: #111;
+  background: white;
+  font-weight: 600;
+}
+
+.pins-header input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pins-header .my-pins-btn {
+  padding: 10px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pins-header .my-pins-btn::before {
+  content: '⭐';
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.pins-header .my-pins-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pins-header .my-pins-btn:hover::before {
+  transform: scale(1.2) rotate(15deg);
+}
+
+.pins-header .my-pins-btn.active {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-color: #fbbf24;
+  color: #78350f;
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.4);
+  transform: translateY(-2px);
+}
+
+.pins-header .my-pins-btn.active::before {
+  content: '⭐';
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.pins-header .my-pins-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.pins-header .refresh {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+}
+
+.pins-header .refresh:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.35);
+  transform: rotate(180deg) scale(1.1);
+}
+
+.pins-header .refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* State Messages */
+.pins-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  color: #6b7280;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 300px;
+}
+
+.pins-state.error {
+  color: #dc2626;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border-radius: 12px;
+  margin: 20px;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+/* Pins Grid */
+.pins-grid {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  align-content: start;
+  min-height: 0;
+}
+
+/* Single-channel layout: force single column for better readability */
+.pins-grid.single { grid-template-columns: 1fr !important; }
+
+.pins-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.pins-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pins-grid::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.pins-grid::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Grid responsive columns */
+/* auto-fill already handles columns; keep media queries unnecessary */
+
+/* Pin Card */
+.pin-card {
+  background: white;
+  border: 2px solid #f1f3f5;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pin-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.pin-card:hover {
+  transform: translateY(-4px);
+  border-color: #e0e7ff;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+}
+
+.pin-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Pin Card Header */
+.pin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 10px;
+}
+
+.pin-card-header .room {
+  color: var(--brand);
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.15);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+}
+
+.pin-card-header .room::before {
+  content: '#';
+  font-weight: 700;
+}
+
+.pin-card-header .time {
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Pin Author */
+.pin-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f1f3f5;
+}
+
+.pin-author .avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.pin-card:hover .pin-author .avatar {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.pin-author .name {
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 14px;
+  letter-spacing: -0.2px;
+}
+
+/* Compact preview line */
+.pin-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 6px;
+  min-width: 0;
+}
+
+.pin-badge {
+  background: #eef2ff;
+  color: var(--brand);
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #e0e7ff;
+  flex-shrink: 0;
+}
+
+.pin-preview-text {
+  color: #475569;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pin Body */
+.pin-body {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  color: #374151;
+  font-size: 14px;
+  margin-bottom: 12px;
+  word-break: break-word;
+}
+
+/* Pin Attachments */
+.pin-attachments {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 2px solid #f1f3f5;
+}
+
+.pin-attachments .att {
+  background: #f9fafb;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.pin-attachments .att:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.pin-attachments .att img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 300px;
+  transition: transform 0.3s ease;
+}
+
+.pin-attachments .att:hover img {
+  transform: scale(1.02);
+}
+
+.pin-attachments .title {
+  font-weight: 700;
+  font-size: 13px;
+  color: #1f2937;
+  padding: 10px 12px 4px;
+}
+
+.pin-attachments .desc {
+  font-size: 12px;
+  color: #6b7280;
+  padding: 0 12px 10px;
+  line-height: 1.5;
+}
+
+/* Empty State Enhancement */
+.pins-state:not(.error) {
+  background: white;
+  border-radius: 16px;
+  margin: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.pins-state:not(.error)::before {
+  content: '📌';
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+/* Tablet Responsive (768px - 1024px) */
+@media (max-width: 1024px) {
+  .pins-header {
+    padding: 18px 20px;
+  }
+
+  .pins-header .left h3 {
+    font-size: 18px;
+  }
+
+  .pins-grid {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .pin-card {
+    padding: 16px;
+  }
+}
+
+/* Mobile Responsive (max-width: 768px) */
+@media (max-width: 768px) {
+  .pins-header {
+    padding: 16px 18px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .pins-header .left {
+    flex: 1 1 100%;
+  }
+
+  .pins-header .left h3 {
+    font-size: 18px;
+  }
+
+  .pins-header .left h3::before {
+    font-size: 18px;
+  }
+
+  .pins-header .left .sub {
+    font-size: 12px;
+  }
+
+  .pins-header .right {
+    flex: 1 1 100%;
+    gap: 8px;
+  }
+
+  .pins-header select,
+  .pins-header input {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 14px;
+    font-size: 12px;
+  }
+
+  .pins-header input {
+    width: 100%;
+  }
+
+  .pins-header .my-pins-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+    height: 42px;
+  }
+
+  .pins-header .my-pins-btn::before {
+    font-size: 14px;
+  }
+
+  .pins-header .refresh {
+    min-width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .pins-grid {
+    padding: 14px 12px;
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
+
+  .pin-card {
+    padding: 14px;
+  }
+
+  .pin-card-header {
+    margin-bottom: 12px;
+  }
+
+  .pin-card-header .room {
+    padding: 5px 12px;
+    font-size: 11px;
+    max-width: 55%;
+  }
+
+  .pin-card-header .time {
+    font-size: 10px;
+  }
+
+  .pin-author {
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+  }
+
+  .pin-author .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .pin-author .name {
+    font-size: 13px;
+  }
+
+  .pin-body {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .pin-attachments {
+    margin-top: 12px;
+    padding-top: 12px;
+    gap: 10px;
+  }
+
+  .pin-attachments .att img {
+    max-height: 250px;
+  }
+
+  .pin-attachments .title {
+    font-size: 12px;
+    padding: 8px 10px 3px;
+  }
+
+  .pin-attachments .desc {
+    font-size: 11px;
+    padding: 0 10px 8px;
+  }
+
+  .pins-state {
+    padding: 40px 20px;
+    font-size: 14px;
+    min-height: 250px;
+  }
+
+  .pins-state:not(.error)::before {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .pins-header {
+    padding: 14px 16px;
+  }
+
+  .pins-header .left h3 {
+    font-size: 16px;
+  }
+
+  .pins-header .right {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .pins-header select,
+  .pins-header input {
+    width: 100%;
+  }
+
+  .pins-header .my-pins-btn {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .pins-header .refresh {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .pins-grid {
+    padding: 12px 10px;
+    gap: 10px;
+  }
+
+  .pin-card {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .pin-card-header {
+    flex-wrap: wrap;
+  }
+
+  .pin-card-header .room {
+    max-width: 100%;
+    flex: 1 1 100%;
+    margin-bottom: 6px;
+  }
+
+  .pin-card-header .time {
+    flex: 1 1 100%;
+  }
+
+  .pin-author .avatar {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .pin-body {
+    font-size: 12px;
+  }
+
+  .pins-state {
+    padding: 30px 16px;
+    font-size: 13px;
+  }
+}
+
+/* Loading Animation */
+.pins-grid.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Hover Effects Enhancement */
+@media (hover: hover) {
+  .pin-card {
+    cursor: pointer;
+  }
+  
+  .pin-card:active {
+    transform: translateY(-2px);
+  }
+}

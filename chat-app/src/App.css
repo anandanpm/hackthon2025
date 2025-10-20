@@ -1,3 +1,17 @@
+:root {
+  --bg: #f7f7fb;
+  --panel: #ffffff;
+  --panel-border: #e5e7eb;
+  --muted: #6b7280;
+  --text: #0f172a;
+  --brand: #667eea;
+  --brand-2: #764ba2;
+  --danger: #dc3545;
+  --success: #16a34a;
+  --shadow: 0 4px 12px rgba(0,0,0,.06);
+  --radius: 12px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +24,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8f9fa;
+  background: var(--bg);
+  color: var(--text);
 }
 
 #root {
@@ -25,14 +40,14 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  color: #666;
+  color: var(--muted);
 }
 
 .loading-spinner {
   width: 40px;
   height: 40px;
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #667eea;
+  border-top: 4px solid var(--brand);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 16px;

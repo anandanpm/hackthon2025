@@ -9,19 +9,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  border-bottom: 1px solid #e1e5e9;
-  background: #f8f9fa;
+  border-bottom: 1px solid var(--panel-border);
+  background: #f9fafb;
 }
 
 .room-list-header h3 {
   margin: 0;
-  color: #333;
+  color: var(--text);
   font-size: 16px;
   font-weight: 600;
 }
 
 .room-count {
-  background: #667eea;
+  background: var(--brand);
   color: white;
   padding: 4px 8px;
   border-radius: 12px;
@@ -40,24 +40,24 @@
   align-items: center;
   padding: 12px 20px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.08s ease;
   border-left: 3px solid transparent;
 }
 
 .room-item:hover {
-  background-color: #f8f9fa;
+  background-color: #f3f4f6;
 }
 
 .room-item.active {
-  background-color: #e3f2fd;
-  border-left-color: #667eea;
+  background-color: #eef2ff;
+  border-left-color: var(--brand);
 }
 
 .room-icon {
   width: 32px;
   height: 32px;
   border-radius: 6px;
-  background: #667eea;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
   color: white;
   display: flex;
   align-items: center;
@@ -66,6 +66,7 @@
   font-size: 14px;
   margin-right: 12px;
   flex-shrink: 0;
+  box-shadow: var(--shadow);
 }
 
 .room-info {
@@ -75,7 +76,7 @@
 
 .room-name {
   font-weight: 600;
-  color: #333;
+  color: var(--text);
   font-size: 14px;
   margin-bottom: 2px;
   white-space: nowrap;
@@ -84,7 +85,7 @@
 }
 
 .room-topic {
-  color: #666;
+  color: var(--muted);
   font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
@@ -92,7 +93,7 @@
 }
 
 .unread-badge {
-  background: #dc3545;
+  background: #ef4444;
   color: white;
   border-radius: 10px;
   padding: 2px 6px;
@@ -108,7 +109,7 @@
   justify-content: center;
   align-items: center;
   height: 200px;
-  color: #666;
+  color: var(--muted);
   font-size: 14px;
 }
 
@@ -118,15 +119,15 @@
 }
 
 .room-list-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #f3f4f6;
 }
 
 .room-list-content::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: #cbd5e1;
   border-radius: 3px;
 }
 
 .room-list-content::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #94a3b8;
 }
 

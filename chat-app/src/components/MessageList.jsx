@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Message from './Message';
 import './MessageList.css';
 
-const MessageList = ({ messages, currentUserId }) => {
+const MessageList = ({ messages, currentUserId, roomId, onStartThread, onMessageUpdate, onMessageDelete }) => {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -30,6 +30,10 @@ const MessageList = ({ messages, currentUserId }) => {
           key={message._id || index}
           message={message}
           isOwn={message.u?._id === currentUserId}
+          roomId={roomId}
+          onStartThread={onStartThread}
+          onMessageUpdate={onMessageUpdate}
+          onMessageDelete={onMessageDelete}
         />
       ))}
       <div ref={messagesEndRef} />

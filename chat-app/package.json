@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rocket.chat/fuselage": "^0.66.4",
+    "@rocket.chat/fuselage-polyfills": "^0.31.25",
+    "@rocket.chat/fuselage-tokens": "^0.33.2",
     "axios": "^1.12.2",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^6.22.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

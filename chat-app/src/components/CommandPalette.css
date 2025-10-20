@@ -1,0 +1,7 @@
+.cp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);z-index:50}
+.cp-modal{max-width:680px;margin:10% auto;background:#0b1020;color:#e5e7eb;border-radius:12px;padding:16px 16px 12px;box-shadow:0 20px 60px rgba(2,6,23,.55),0 4px 16px rgba(2,6,23,.35);border:1px solid rgba(255,255,255,.08)}
+.cp-input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:#0f172a;color:#e5e7eb;outline:none;transition:border-color .2s ease}
+.cp-input::placeholder{color:#9ca3af}
+.cp-input:focus{border-color:#667eea}
+.cp-history{margin-top:10px;font-size:12px;color:#9ca3af}
+@media (max-width:768px){.cp-modal{margin:20% 12px;}}
